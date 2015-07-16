@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -27,7 +28,6 @@ public class FirstActivityScanner extends ActionBarActivity {
     Individual mCurrentIndividual;
 
     private TextView mNameTextView;
-    private TextView mPlateTextView;
     private LinearLayout mMenuInfraccionesLayout;
     private LinearLayout mInfraccionesLayout;
 
@@ -47,14 +47,19 @@ public class FirstActivityScanner extends ActionBarActivity {
 
 
         //Views assignment
-
         mMenuInfraccionesLayout = (LinearLayout) findViewById(R.id.infraccionesLayout);
         mNameTextView = (TextView) findViewById(R.id.nameTextView);
-        mPlateTextView = (TextView) findViewById(R.id.plateTextView);
         mInfraccionesLayout = (LinearLayout) findViewById(R.id.infraccionesIndividuo);
         Button agregarInfracciones = (Button) findViewById(R.id.agregarInfracciones);
 
-        //Add infractions button
+        //Mas Info
+        Button masInfoButton = (Button) findViewById(R.id.masInfoButton);
+        final RelativeLayout masInfoLayout = (RelativeLayout) findViewById(R.id.informacionIndividuo);
+        final TextView cedulaTextView = (TextView) findViewById(R.id.cedulaTextView);
+        final TextView telefonoTextView = (TextView) findViewById(R.id.telefonoTextView);
+        final TextView domicilioTextView = (TextView) findViewById(R.id.direccionTextView);
+
+        //Add infracciones button
         agregarInfracciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +67,26 @@ public class FirstActivityScanner extends ActionBarActivity {
             }
         });
 
+        //Mas info button
+        masInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                masInfoLayout.setVisibility(View.VISIBLE);
+                cedulaTextView.setText(mCurrentIndividual.getCedula());
+                telefonoTextView.setText(mCurrentIndividual.getTelefono());
+                domicilioTextView.setText(mCurrentIndividual.getDomicilio());
+            }
+        });
+
+        masInfoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                masInfoLayout.setVisibility(View.GONE);
+            }
+        });
+
         mMenuInfraccionesLayout.setVisibility(View.INVISIBLE);
+        masInfoLayout.setVisibility(View.GONE);
 
 
         setData();
@@ -96,7 +120,6 @@ public class FirstActivityScanner extends ActionBarActivity {
         counterForTextViews = 0;
 
         mNameTextView.setText(mCurrentIndividual.getName());
-        mPlateTextView.setText(mCurrentIndividual.getPlate());
 
         mInfraccionesLayout.removeAllViews();
         for (Map.Entry<String, String> entry : mCurrentIndividual.getInfracciones().entrySet()) {

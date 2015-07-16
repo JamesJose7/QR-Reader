@@ -6,13 +6,11 @@ package SampleDataBase;
 public class IndividualCreator {
 
 
-    public static final String NO_ANTECEDENTES = "No antecedentes";
-
-    Individual firstIndividual = new Individual("Jaime", 1, "ADG-584");
-    Individual secondIndividual = new Individual("Pedro", 2, "LJG-885");
-    Individual thirdIndividual = new Individual("Travis", 3, "FFK-737");
-    Individual fourthIndividual = new Individual("Javier", 4, "GSC-853");
-    Individual fifthIndividual = new Individual("James", 5, "LOJ-235");
+    Individual firstIndividual = new Individual("Jaime", "ADG-584", "1105234976", "2653194", "Direccion");
+    Individual secondIndividual = new Individual("Pedro", "LJG-885", "118936482", "2563421", "Direccion");
+    Individual thirdIndividual = new Individual("Travis", "FFK-737", "1132534973", "2668402", "Direccion");
+    Individual fourthIndividual = new Individual("Javier", "GSC-853", "1106345872", "2643162", "Direccion");
+    Individual fifthIndividual = new Individual("James", "LOJ-235", "1194632053", "2671731", "Direccion");
 
 
     public Individual[] individuals = {firstIndividual, secondIndividual, thirdIndividual, fourthIndividual, fifthIndividual};
