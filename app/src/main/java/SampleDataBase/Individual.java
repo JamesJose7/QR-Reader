@@ -1,7 +1,10 @@
 package SampleDataBase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by agua on 21/04/15.
@@ -9,15 +12,13 @@ import java.util.List;
 public class Individual {
 
     private String mName;
-    private String mBackground;
     private int mID;
     private String mPlate;
-    private String mNuevosAntecedentes = "";
-    private String mDates = "";
+    private Map<String, String> mInfracciones;
 
-    public Individual(String name, String background, int id, String plate) {
+    public Individual(String name, int id, String plate) {
+        mInfracciones = new TreeMap<>();
         mName = name;
-        mBackground = background;
         mID = id;
         mPlate = plate;
     }
@@ -30,31 +31,15 @@ public class Individual {
         return mPlate;
     }
 
-    public void setBackground(String background) {
-        mBackground = background;
-    }
-
-    public String getBackground() {
-        return mBackground;
-    }
-
     public String getName() {
         return mName;
     }
 
-    public void setNuevosAntecedentes(String nuevosAntecedentes) {
-        mNuevosAntecedentes = nuevosAntecedentes;
+    public Map<String, String> getInfracciones() {
+        return mInfracciones;
     }
 
-    public String getNuevosAntecedentes() {
-        return mNuevosAntecedentes;
-    }
-
-    public void setDates(String dates) {
-        mDates = dates;
-    }
-
-    public String getDates() {
-        return mDates;
+    public void setInfraccion(Map<String, String> infracciones) {
+        mInfracciones = infracciones;
     }
 }

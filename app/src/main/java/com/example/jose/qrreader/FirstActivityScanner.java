@@ -1,6 +1,7 @@
 package com.example.jose.qrreader;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import SampleDataBase.Individual;
 import SampleDataBase.IndividualCreator;
@@ -24,13 +26,12 @@ public class FirstActivityScanner extends ActionBarActivity {
     Individual[] mIndividuals;
     Individual mCurrentIndividual;
 
-    private TextView nameTextView;
-    private TextView infraccionesTextView;
-    private TextView registerDates;
-    private TextView plateTextView;
-    private LinearLayout infraccionesLayout;
+    private TextView mNameTextView;
+    private TextView mPlateTextView;
+    private LinearLayout mMenuInfraccionesLayout;
+    private LinearLayout mInfraccionesLayout;
 
-    private int individualNumber;
+    private int counterForTextViews = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class FirstActivityScanner extends ActionBarActivity {
 
         Intent intent = getIntent();
         String contents = intent.getStringExtra(MainActivity.INDIVIDUAL_NUMBER);
-        individualNumber = Integer.parseInt(contents);
+        int individualNumber = Integer.parseInt(contents);
 
         mIndividuals = mCreator.getIndividuals();
         mCurrentIndividual = mIndividuals[individualNumber];
@@ -47,25 +48,24 @@ public class FirstActivityScanner extends ActionBarActivity {
 
         //Views assignment
 
-        infraccionesLayout = (LinearLayout) findViewById(R.id.infraccionesLayout);
-        nameTextView = (TextView) findViewById(R.id.nameTextView);
-        infraccionesTextView = (TextView) findViewById(R.id.infraccionesTextView);
-        registerDates = (TextView) findViewById(R.id.fechaRegistro);
-        plateTextView = (TextView) findViewById(R.id.plateTextView);
+        mMenuInfraccionesLayout = (LinearLayout) findViewById(R.id.infraccionesLayout);
+        mNameTextView = (TextView) findViewById(R.id.nameTextView);
+        mPlateTextView = (TextView) findViewById(R.id.plateTextView);
+        mInfraccionesLayout = (LinearLayout) findViewById(R.id.infraccionesIndividuo);
         Button agregarInfracciones = (Button) findViewById(R.id.agregarInfracciones);
 
         //Add infractions button
         agregarInfracciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                infraccionesLayout.setVisibility(View.VISIBLE);
+                mMenuInfraccionesLayout.setVisibility(View.VISIBLE);
             }
         });
 
-        infraccionesLayout.setVisibility(View.INVISIBLE);
+        mMenuInfraccionesLayout.setVisibility(View.INVISIBLE);
 
 
-        setData(mCurrentIndividual);
+        setData();
 
     }
 
@@ -92,54 +92,80 @@ public class FirstActivityScanner extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setData(Individual individual) {
+    private void setData() {
+        counterForTextViews = 0;
 
+        mNameTextView.setText(mCurrentIndividual.getName());
+        mPlateTextView.setText(mCurrentIndividual.getPlate());
 
-        nameTextView.setText(individual.getName());
-        plateTextView.setText(individual.getPlate());
-
-        if(individual.getBackground().equals(IndividualCreator.NO_ANTECEDENTES)) {
-            infraccionesTextView.setText("Antecedentes\n" +
-                                        individual.getBackground());
-        } else {
-            infraccionesTextView.setText(individual.getNuevosAntecedentes());
-            registerDates.setText(individual.getDates());
-
+        mInfraccionesLayout.removeAllViews();
+        for (Map.Entry<String, String> entry : mCurrentIndividual.getInfracciones().entrySet()) {
+            addInfraccionTextView(entry.getKey(), entry.getValue());
         }
+
 
     }
 
-    public void onClick(View view) {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM | hh:mm a");
+    public void addInfraccionOnClick(View view) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM | hh:mm:ss a");
         Date date = new Date();
 
-        String nuevosAntecedentes = mCurrentIndividual.getNuevosAntecedentes();
-        String dates = mCurrentIndividual.getDates();
+        String nuevoAntecedente = "";
+        String nuevaFecha;
+
 
         //Set Dates
-        dates += formatter.format(date) + "\n";
-        mCurrentIndividual.setDates(dates);
+        nuevaFecha = formatter.format(date);
 
         switch (view.getId()) {
             case R.id.semaforoEnRojo:
-                nuevosAntecedentes += "Semaforo en rojo\n";
-                mCurrentIndividual.setNuevosAntecedentes(nuevosAntecedentes);
-                mCurrentIndividual.setBackground("Antecedentes");
+                nuevoAntecedente = "Semaforo en rojo";
                 break;
 
             case R.id.noEstacionar:
-                nuevosAntecedentes += "No estacionar\n";
-                mCurrentIndividual.setNuevosAntecedentes(nuevosAntecedentes);
-                mCurrentIndividual.setBackground("Antecedentes");
+                nuevoAntecedente = "No estacionar";
                 break;
             default:
                 break;
 
         }
 
-        infraccionesLayout.setVisibility(View.INVISIBLE);
+        mCurrentIndividual.getInfracciones().put(nuevaFecha, nuevoAntecedente);
 
-        setData(mCurrentIndividual);
+        mMenuInfraccionesLayout.setVisibility(View.INVISIBLE);
+
+        setData();
+    }
+
+    public void addInfraccionTextView(String date, String infraccion) {
+
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT, 50.0f);
+
+        counterForTextViews++;
+        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.setWeightSum(100);
+        linearLayout.setPadding(12, 12, 12, 12);
+        TextView textViewLeft = new TextView(getApplicationContext());
+        textViewLeft.setText(date);
+        textViewLeft.setLayoutParams(param);
+        textViewLeft.setTextSize(15);
+        TextView textViewRight = new TextView(getApplicationContext());
+        textViewRight.setText(infraccion);
+        textViewRight.setTextSize(15);
+        textViewRight.setLayoutParams(param);
+        if(counterForTextViews % 2 == 0) {
+            linearLayout.setBackgroundColor(Color.parseColor("#cccccc"));
+            textViewLeft.setTextColor(Color.parseColor("#ffffff"));
+            textViewRight.setTextColor(Color.parseColor("#ffffff"));
+        }
+        linearLayout.addView(textViewLeft);
+        linearLayout.addView(textViewRight);
+
+        mInfraccionesLayout.addView(linearLayout);
     }
 }

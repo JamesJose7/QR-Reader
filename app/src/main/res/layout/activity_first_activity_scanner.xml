@@ -67,32 +67,31 @@
             android:layout_below="@+id/relativeLayout"
             android:layout_centerHorizontal="true"/>
 
+
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
             android:layout_below="@id/agregarInfracciones"
-            android:layout_marginTop="20dp"
-            android:weightSum="100">
+            android:layout_marginTop="20dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Fecha"
-                android:id="@+id/fechaRegistro"
-                android:layout_weight="60"
-                android:paddingLeft="15dp"/>
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center_horizontal"
-                android:text="...."
-                android:id="@+id/infraccionesTextView"
-                android:layout_weight="40"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/infraccionesIndividuo"
+                    android:weightSum="100">
 
 
-        </LinearLayout>
+
+                </LinearLayout>
+
+                </ScrollView>
+            </LinearLayout>
+
 
     </RelativeLayout>
 
@@ -101,21 +100,22 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#fff"
-        android:id="@+id/infraccionesLayout">
+        android:id="@+id/infraccionesLayout"
+        tools:visibility="gone">
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Semaforo en rojo"
             android:id="@+id/semaforoEnRojo"
-            android:onClick="onClick"/>
+            android:onClick="addInfraccionOnClick"/>
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="No estacionar"
             android:id="@+id/noEstacionar"
-            android:onClick="onClick"/>
+            android:onClick="addInfraccionOnClick"/>
 
         <Button
             android:layout_width="fill_parent"
