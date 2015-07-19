@@ -1,5 +1,6 @@
 package com.fundamentos_programacion.jose.qrreader;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
@@ -32,7 +33,7 @@ import com.fundamentos_programacion.jose.SampleDataBase.IndividualCreator;
  * @version 1.2
  * @since 2015-05-01
  */
-public class FirstActivityScanner extends ActionBarActivity {
+public class FirstActivityScanner extends Activity {
 
     protected IndividualCreator mCreator = MainActivity.mCreator;
     protected Individual[] mIndividuals;
@@ -217,6 +218,8 @@ public class FirstActivityScanner extends ActionBarActivity {
         textViewRight.setText(infraccion);
         textViewRight.setTextSize(15);
         textViewRight.setLayoutParams(param);
+        textViewLeft.setTextColor(Color.parseColor("#cccccc"));
+        textViewRight.setTextColor(Color.parseColor("#cccccc"));
         if(counterForTextViews % 2 == 0) {
             linearLayout.setBackgroundColor(Color.parseColor("#cccccc"));
             textViewLeft.setTextColor(Color.parseColor("#ffffff"));

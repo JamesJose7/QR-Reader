@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Agregar infraccion"
+            android:text="AGREGAR INFRACCION"
             android:id="@+id/agregarInfracciones"
             android:layout_below="@+id/relativeLayout"
             android:layout_centerHorizontal="true"/>

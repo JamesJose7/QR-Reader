@@ -19,18 +19,16 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/CustomActionBarTheme" >
         <activity
             android:name="com.fundamentos_programacion.jose.qrreader.MainActivity"
             android:label="@string/app_name"
+            android:theme="@style/CustomActionBarTheme"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,6 +51,8 @@
         <activity
             android:name="com.fundamentos_programacion.jose.qrreader.FirstActivityScanner"
             android:label="@string/title_activity_first_activity_scanner"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomActionBarTheme"
             android:parentActivityName="com.fundamentos_programacion.jose.qrreader.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
