@@ -1,10 +1,14 @@
-package SampleDataBase;
+package com.fundamentos_programacion.jose.SampleDataBase;
 
 import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Created by agua on 21/04/15.
+ * Objeto de cada individuo
+ *
+ * @author Jose
+ * @version 1.1
+ * @since 2015-05-01
  */
 public class Individual {
 

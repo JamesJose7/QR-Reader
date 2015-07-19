@@ -1,4 +1,4 @@
-package com.example.jose.qrreader;
+package com.fundamentos_programacion.jose.qrreader;
 
 import android.content.Intent;
 
@@ -11,12 +11,23 @@ import android.widget.Button;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
-import SampleDataBase.IndividualCreator;
+import com.fundamentos_programacion.jose.SampleDataBase.IndividualCreator;
 
+
+/**
+ * <h1>Aplicacion para registrar infracciones mediante codigos QR</h1>
+ * Esta es la primera actividad al iniciar la aplicacion que inicializa el scanner de codigo QR
+ *
+ * @author Jose Eguiguren
+ * @author Stalin Carrion
+ * @author Jose Godoy
+ * @version 1.2
+ * @since 2015-05-01
+ */
 
 public class MainActivity extends Activity {
 
-    IntentIntegrator integrator = new IntentIntegrator(this);
+    private IntentIntegrator integrator = new IntentIntegrator(this);
 
     public static final IndividualCreator mCreator = new IndividualCreator();
 
@@ -30,7 +41,13 @@ public class MainActivity extends Activity {
         Button buttonStartScan = (Button) findViewById(R.id.buttonStartScan);
 
 
+
         buttonStartScan.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Al hacer click en el boton el escaner de codigo QR se inicializa
+             *
+             * @param v En este caso la view es el boton del escaner
+             */
             @Override
             public void onClick(View v) {
 
@@ -45,6 +62,13 @@ public class MainActivity extends Activity {
 
     }
 
+    /**
+     * Llamado al realizar un escaneo de un codigo QR
+     *
+     * @param requestCode
+     * @param resultCode Codigo del resultado de la actividad que realizo el escaner
+     * @param intent Intent de la actividad del escaner
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
         if (resultCode == RESULT_CANCELED) {
@@ -57,6 +81,11 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Inicia la nueva actividad con los datos recibidos del codigo QR
+     *
+     * @param contents contenido del codigo QR
+     */
     public void startNewActivity(String contents) {
 
         Intent intent = new Intent(this, FirstActivityScanner.class);

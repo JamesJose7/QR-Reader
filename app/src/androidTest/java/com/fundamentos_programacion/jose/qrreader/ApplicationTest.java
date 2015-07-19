@@ -1,4 +1,4 @@
-package com.example.jose.qrreader;
+package com.fundamentos_programacion.jose.qrreader;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

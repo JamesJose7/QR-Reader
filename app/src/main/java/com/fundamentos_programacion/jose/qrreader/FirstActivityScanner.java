@@ -1,4 +1,4 @@
-package com.example.jose.qrreader;
+package com.fundamentos_programacion.jose.qrreader;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,16 +16,27 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-import SampleDataBase.Individual;
-import SampleDataBase.IndividualCreator;
+import com.fundamentos_programacion.jose.SampleDataBase.Individual;
+import com.fundamentos_programacion.jose.SampleDataBase.IndividualCreator;
 
 
+/**
+ * <h1>Actividad que presenta los datos del Ciudadano</h1>
+ * Utiliza el identificador contenido en el QR
+ * de la anterior actividad para buscar el ciudadano en la base de
+ * datos y presentar los datos respectivos.
+ *
+ * @author Jose Eguiguren
+ * @author Stalin Carrion
+ * @author Jose Godoy
+ * @version 1.2
+ * @since 2015-05-01
+ */
 public class FirstActivityScanner extends ActionBarActivity {
 
-    public IndividualCreator mCreator = MainActivity.mCreator;
-
-    Individual[] mIndividuals;
-    Individual mCurrentIndividual;
+    protected IndividualCreator mCreator = MainActivity.mCreator;
+    protected Individual[] mIndividuals;
+    protected Individual mCurrentIndividual;
 
     private TextView mNameTextView;
     private LinearLayout mMenuInfraccionesLayout;
@@ -61,6 +72,10 @@ public class FirstActivityScanner extends ActionBarActivity {
 
         //Add infracciones button
         agregarInfracciones.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Muestra el menu de infracciones disponibles
+             *
+             */
             @Override
             public void onClick(View v) {
                 mMenuInfraccionesLayout.setVisibility(View.VISIBLE);
@@ -69,6 +84,10 @@ public class FirstActivityScanner extends ActionBarActivity {
 
         //Mas info button
         masInfoButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Muestra informacion adicional del ciudadano.
+             *
+             */
             @Override
             public void onClick(View v) {
                 masInfoLayout.setVisibility(View.VISIBLE);
@@ -79,6 +98,10 @@ public class FirstActivityScanner extends ActionBarActivity {
         });
 
         masInfoLayout.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Permite remover el cuadro de informacion adicional al hacer click
+             * en cualquier lado de la pantalla.
+             */
             @Override
             public void onClick(View v) {
                 masInfoLayout.setVisibility(View.GONE);
@@ -116,6 +139,9 @@ public class FirstActivityScanner extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Actualiza la informacion actual del ciudadano en pantalla.
+     */
     private void setData() {
         counterForTextViews = 0;
 
@@ -125,11 +151,15 @@ public class FirstActivityScanner extends ActionBarActivity {
         for (Map.Entry<String, String> entry : mCurrentIndividual.getInfracciones().entrySet()) {
             addInfraccionTextView(entry.getKey(), entry.getValue());
         }
-
-
     }
 
 
+    /**
+     * Agrega la infraccion correspondiente a la lista de infracciones del ciudadano.
+     * <p></p>
+     * Todos los botones usan el mismo metodo y se obtiene la fecha actual y la
+     * infraccion con respecto al id del boton usado.
+     */
     public void addInfraccionOnClick(View view) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM | hh:mm:ss a");
@@ -162,6 +192,12 @@ public class FirstActivityScanner extends ActionBarActivity {
         setData();
     }
 
+    /**
+     * Agrega la nueva infraccion en una lista de views verticales.
+     *
+     * @param date fecha de la infraccion a mostrar.
+     * @param infraccion infraccion a mostrar.
+     */
     public void addInfraccionTextView(String date, String infraccion) {
 
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
