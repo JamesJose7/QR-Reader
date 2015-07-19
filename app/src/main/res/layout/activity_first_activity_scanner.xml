@@ -49,11 +49,15 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="86">
 
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:text="+"
-                    android:id="@+id/masInfoButton"/>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/masInfoButton"
+                    android:src="@drawable/plus_circle"
+                    android:background="#00ffffff"
+                    />
+
             </LinearLayout>
 
 
@@ -120,42 +124,66 @@
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Estado de embriaguez"
+            android:id="@+id/estadoEmbriaguez"
+            android:onClick="addInfraccionOnClick"/>
 
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Exceso de velocidad"
+            android:id="@+id/excesoVelocidad"
+            android:onClick="addInfraccionOnClick"/>
 
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Parabrisas Roto"
+            android:id="@+id/parabrisasRoto"
+            android:onClick="addInfraccionOnClick"/>
 
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Exceso de pasajeros"
+            android:id="@+id/excesoPasajeros"
+            android:onClick="addInfraccionOnClick"/>
 
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Lesiones causadas"
+            android:id="@+id/lesionesCausadas"
+            android:onClick="addInfraccionOnClick"/>
 
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Llantas en mal estado"
+            android:id="@+id/llantasMalEstado"
+            android:onClick="addInfraccionOnClick"/>
 
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Bajo sustancias estupefacientes"
+            android:id="@+id/bajoSustanciasE"
+            android:onClick="addInfraccionOnClick"/>
 
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Salir"
+            android:id="@+id/salir"
+            android:onClick="addInfraccionOnClick"/>
     </LinearLayout>
 
     </RelativeLayout>

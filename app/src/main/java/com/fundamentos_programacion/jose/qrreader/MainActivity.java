@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 
@@ -38,7 +39,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonStartScan = (Button) findViewById(R.id.buttonStartScan);
+        ImageView buttonStartScan = (ImageView) findViewById(R.id.buttonStartScan);
 
 
 

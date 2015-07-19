@@ -8,11 +8,34 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Scanning" >
 
-    <Button
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/buttonStartScan"
+        android:src="@drawable/scan_qr"
+        android:layout_centerInParent="true"/>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/ant_logo"
+        android:layout_above="@id/buttonStartScan"/>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/up_arrow"
+        android:id="@+id/upArrow"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/buttonStartScan"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Scan"
-        android:id="@+id/buttonStartScan"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/upArrow"
+        android:text="Escanear QR"
+        android:layout_centerHorizontal="true"
+        android:textSize="50sp"
+        android:textStyle="bold"/>
 </RelativeLayout>

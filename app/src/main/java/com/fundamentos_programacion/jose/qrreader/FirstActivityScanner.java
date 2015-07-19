@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ import com.fundamentos_programacion.jose.SampleDataBase.IndividualCreator;
  * @version 1.2
  * @since 2015-05-01
  */
-public class FirstActivityScanner extends Activity {
+public class FirstActivityScanner extends Activity implements AlertDialogFragment.MyInterface {
 
     protected IndividualCreator mCreator = MainActivity.mCreator;
     protected Individual[] mIndividuals;
@@ -55,7 +56,12 @@ public class FirstActivityScanner extends Activity {
         int individualNumber = Integer.parseInt(contents);
 
         mIndividuals = mCreator.getIndividuals();
-        mCurrentIndividual = mIndividuals[individualNumber];
+        try {
+            mCurrentIndividual = mIndividuals[individualNumber];
+        } catch (Exception e) {
+            e.printStackTrace();
+            alertUserAboutError();
+        }
 
 
         //Views assignment
@@ -65,7 +71,7 @@ public class FirstActivityScanner extends Activity {
         Button agregarInfracciones = (Button) findViewById(R.id.agregarInfracciones);
 
         //Mas Info
-        Button masInfoButton = (Button) findViewById(R.id.masInfoButton);
+        ImageButton masInfoButton = (ImageButton) findViewById(R.id.masInfoButton);
         final RelativeLayout masInfoLayout = (RelativeLayout) findViewById(R.id.informacionIndividuo);
         final TextView cedulaTextView = (TextView) findViewById(R.id.cedulaTextView);
         final TextView telefonoTextView = (TextView) findViewById(R.id.telefonoTextView);
@@ -112,8 +118,12 @@ public class FirstActivityScanner extends Activity {
         mMenuInfraccionesLayout.setVisibility(View.INVISIBLE);
         masInfoLayout.setVisibility(View.GONE);
 
-
-        setData();
+        try {
+            setData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            alertUserAboutError();
+        }
 
     }
 
@@ -141,9 +151,16 @@ public class FirstActivityScanner extends Activity {
     }
 
     /**
+     * Metodo de la interfaz creada en el dialogo para poder terminar
+     * esta actividad.
+     */
+    @Override
+    public void onChoose() { finish(); }
+
+    /**
      * Actualiza la informacion actual del ciudadano en pantalla.
      */
-    private void setData() {
+    private void setData()  throws Exception {
         counterForTextViews = 0;
 
         mNameTextView.setText(mCurrentIndividual.getName());
@@ -161,7 +178,7 @@ public class FirstActivityScanner extends Activity {
      * Todos los botones usan el mismo metodo y se obtiene la fecha actual y la
      * infraccion con respecto al id del boton usado.
      */
-    public void addInfraccionOnClick(View view) {
+    public void addInfraccionOnClick(View view) throws Exception {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM | hh:mm:ss a");
         Date date = new Date();
@@ -177,16 +194,39 @@ public class FirstActivityScanner extends Activity {
             case R.id.semaforoEnRojo:
                 nuevoAntecedente = "Semaforo en rojo";
                 break;
-
             case R.id.noEstacionar:
                 nuevoAntecedente = "No estacionar";
                 break;
+            case  R.id.estadoEmbriaguez:
+                nuevoAntecedente = "Estado de embriaguez";
+                break;
+            case R.id.excesoVelocidad:
+                nuevoAntecedente = "Exceso de velocidad";
+                break;
+            case R.id.parabrisasRoto:
+                nuevoAntecedente = "Parabrisas roto";
+                break;
+            case R.id.excesoPasajeros:
+                nuevoAntecedente = "Exceso de pasajeros";
+                break;
+            case R.id.lesionesCausadas:
+                nuevoAntecedente = "Lesiones causadas";
+                break;
+            case R.id.llantasMalEstado:
+                nuevoAntecedente = "Llantas en mal estado";
+                break;
+            case R.id.bajoSustanciasE:
+                nuevoAntecedente = "Bajo sustancias estupefacientes";
+                break;
+            case R.id.salir:
+                nuevoAntecedente = "salir";
             default:
                 break;
 
         }
 
-        mCurrentIndividual.getInfracciones().put(nuevaFecha, nuevoAntecedente);
+        if (!nuevoAntecedente.equals("salir"))
+            mCurrentIndividual.getInfracciones().put(nuevaFecha, nuevoAntecedente);
 
         mMenuInfraccionesLayout.setVisibility(View.INVISIBLE);
 
@@ -229,5 +269,13 @@ public class FirstActivityScanner extends Activity {
         linearLayout.addView(textViewRight);
 
         mInfraccionesLayout.addView(linearLayout);
+    }
+
+    /**
+     * Muestra el dialogo con el mensaje de error.
+     */
+    private void alertUserAboutError() {
+        AlertDialogFragment dialog = new AlertDialogFragment();
+        dialog.show(getFragmentManager(), "error_dialog");
     }
 }
