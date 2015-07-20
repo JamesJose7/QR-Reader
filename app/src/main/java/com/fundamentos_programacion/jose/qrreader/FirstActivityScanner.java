@@ -51,12 +51,12 @@ public class FirstActivityScanner extends Activity implements AlertDialogFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_activity_scanner);
 
-        Intent intent = getIntent();
-        String contents = intent.getStringExtra(MainActivity.INDIVIDUAL_NUMBER);
-        int individualNumber = Integer.parseInt(contents);
-
-        mIndividuals = mCreator.getIndividuals();
         try {
+            Intent intent = getIntent();
+            String contents = intent.getStringExtra(MainActivity.INDIVIDUAL_NUMBER);
+            int individualNumber = Integer.parseInt(contents);
+
+            mIndividuals = mCreator.getIndividuals();
             mCurrentIndividual = mIndividuals[individualNumber];
         } catch (Exception e) {
             e.printStackTrace();
